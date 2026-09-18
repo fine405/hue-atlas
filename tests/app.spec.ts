@@ -169,7 +169,7 @@ test('gemstone group has eight four-color reference palettes and retains group n
   await expect(page.locator('#palettes .card-info h2')).toHaveText(['海蓝宝', '蓝萤石', '摩根石', '橄榄石', '重晶石', '迪奥普塔兹', '蓝石英', '绿碧玺'])
   await expect(page.locator('.gemstone-artwork img')).toHaveCount(8)
   await expect(page.locator('#palettes .card-swatches button')).toHaveCount(32)
-  await expect.poll(() => page.locator('.gemstone-artwork img').evaluateAll((images) => images.every((image) => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth === 720))).toBe(true)
+  await expect.poll(() => page.locator('.gemstone-artwork img').evaluateAll((images) => images.every((image) => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth === 1008))).toBe(true)
   await page.reload()
   await expect(page.getByRole('link', { name: '宝石色系 8' })).toHaveAttribute('aria-current', 'page')
   await page.screenshot({ path: 'test-results/gemstone-gallery.png', fullPage: true })
@@ -232,7 +232,7 @@ test('gemstone group and four-color editor fit mobile', async ({ page }) => {
   await expect(page.getByRole('button', { name: '确认保存' })).toBeInViewport()
 })
 
-test('all gemstone canvases preserve reference pixels and white backgrounds while recoloring', async ({ page }) => {
+test('all gemstone canvases preserve reference structure and white backgrounds while recoloring', async ({ page }) => {
   for (const id of ['aquamarine', 'fluorite', 'morganite', 'peridot', 'barite', 'dioptase', 'quartz', 'tourmaline']) {
     await page.goto(`/palettes/${id}`)
     const canvas = page.locator('canvas')
@@ -251,7 +251,7 @@ test('all gemstone canvases preserve reference pixels and white backgrounds whil
       context.drawImage(image, 0, 0)
       const original = context.getImageData(0, 0, source.width, source.height).data
       const rendered = element.getContext('2d')!.getImageData(0, 0, element.width, element.height).data
-      return original.every((value, index) => value === rendered[index])
+      return original.length === rendered.length && original.every((value, index) => Math.abs(value - rendered[index]) <= 10)
     })).toBe(true)
     const original = await signature()
     await page.locator('.artwork').screenshot({ path: `test-results/gem-${id}.png` })
@@ -261,5 +261,25 @@ test('all gemstone canvases preserve reference pixels and white backgrounds whil
     if (id === 'quartz') await page.screenshot({ path: 'test-results/quartz-recolored.png', fullPage: true })
     await page.getByRole('button', { name: '恢复原色' }).click()
     await expect.poll(signature).toBe(original)
+  }
+})
+
+test('all detail artworks render at Retina density and redraw after resizing', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: 2 })
+  const page = await context.newPage()
+  const pageErrors: string[] = []
+  page.on('pageerror', error => pageErrors.push(error.message))
+  try {
+    for (const id of ['mondrian', 'memphis', 'rococo', 'macaron', 'dunhuang', 'morandi', 'aquamarine', 'fluorite', 'morganite', 'peridot', 'barite', 'dioptase', 'quartz', 'tourmaline']) {
+      await page.goto(`/palettes/${id}`)
+      const canvas = page.locator('canvas')
+      await expect.poll(() => canvas.evaluate((element: HTMLCanvasElement) => element.width >= Math.ceil(element.getBoundingClientRect().width * devicePixelRatio) && element.getContext('2d')!.getImageData(0, 0, 1, 1).data[3] === 255)).toBe(true)
+      if (['memphis', 'morandi', 'quartz'].includes(id)) await page.locator('.artwork').screenshot({ path: `test-results/retina-${id}.png` })
+    }
+    await page.setViewportSize({ width: 1600, height: 900 })
+    await expect.poll(() => page.locator('canvas').evaluate((element: HTMLCanvasElement) => element.width >= Math.ceil(element.getBoundingClientRect().width * devicePixelRatio) && element.getContext('2d')!.getImageData(0, 0, 1, 1).data[3] === 255)).toBe(true)
+    expect(pageErrors).toEqual([])
+  } finally {
+    await context.close()
   }
 })

@@ -1,3 +1,33 @@
+# Image clarity and high-density rendering
+
+final result: passed
+
+## Changes and limits
+
+- Removed unnecessary gemstone downsampling: original 720 × 610 crop is retained in a 1008 × 616 white canvas, replacing 720 × 440 assets containing a 519 × 440 reduced crop. No generated details or new visual content.
+- All 14 detail previews use backing pixels sized to display width × devicePixelRatio, at least native image width and at most 3240 px. ResizeObserver, window resize and density media query update the surface after size/density changes.
+- Bounded luminance sharpening runs once per source load, with a noise threshold and maximum ±10 RGB-channel adjustment. High-quality interpolation renders the resulting native buffer; recoloring reuses the source.
+- Underlying source resolution remains a limit: classic image improvements are modest. Increased backing-store dimensions are interpolation, not newly recovered source detail.
+
+## Evidence and comparison
+
+- Prior assets: `/tmp/hue-quality-before/`. Current source assets: `public/artwork/`. Original gemstone poster captures remain in the source path documented below.
+- Opened `test-results/quality-comparison.png`: prior source assets proportionally scaled for comparison vs actual current browser screenshots, with 600 × 280 focus crops for Memphis, Morandi and Quartz. The prior column is an asset-based comparison, not a captured prior browser render.
+- Current screenshots: `test-results/retina-{memphis,morandi,quartz}.png`, 1280 × 900 CSS viewport at deviceScaleFactor 2. Artwork width 868 CSS px / 1736 backing pixels; source assets 1080 px for classics and 1008 px for gemstones.
+- Reviewed pattern edges, paint texture and crystal fractures. Source composition and palette are retained; gemstone fine detail is better preserved by removing the reduced intermediate. No distracting sharpen halos observed.
+- In-app Memphis review: CSS width 635 px, devicePixelRatio 2, Canvas width 1270 px; screenshot inspected after reload. No console errors.
+- Typography, UI copy, spacing and controls unchanged. Source artwork aspect ratios retained; gemstone content scale changes by less than 1% due to native-pixel placement.
+
+## Checks
+
+- Build/TypeScript and lint passed. All 13 browser tests passed.
+- Added high-density checks on all 14 detail pages and a window-resize redraw check. Existing tests cover colors, reset, persistence, background protection, group navigation and mobile behavior.
+- Source comparison now permits the documented ±10 sharpening adjustment; exact reset still returns the same enhanced original.
+
+Earlier reports below are historical and superseded where they describe default pixel equality or reduced gemstone assets.
+
+---
+
 # Gemstone photographic fidelity revision
 
 final result: passed
