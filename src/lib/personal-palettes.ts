@@ -14,7 +14,7 @@ function parse(raw: string): PersonalPalette[] {
   if (!Array.isArray(items) || !items.every((item) => item && typeof item.id === 'string' &&
     typeof item.name === 'string' && item.name.trim().length > 0 && item.name.length <= 40 &&
     palettes.some((palette) => palette.id === item.baseId) && Array.isArray(item.colors) &&
-    item.colors.length === 5 && item.colors.every((color: unknown) => typeof color === 'string' && /^#[\da-f]{6}$/i.test(color)))) {
+    item.colors.length === palettes.find((palette) => palette.id === item.baseId)?.colors.length && item.colors.every((color: unknown) => typeof color === 'string' && /^#[\da-f]{6}$/i.test(color)))) {
     throw new Error('Invalid saved palettes')
   }
   return items

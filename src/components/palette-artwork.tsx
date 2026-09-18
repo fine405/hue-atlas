@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { GemstoneArtwork } from '@/components/gemstone-artwork'
 import type { Palette } from '@/data/palettes'
 
 const rgb = (hex: string) => [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16))
@@ -25,7 +26,7 @@ function recolor(source: ImageData, original: string[], colors: string[], preser
   return output
 }
 
-export function PaletteArtwork({ palette, colors = palette.colors, interactive = false }: { palette: Palette; colors?: Palette['colors']; interactive?: boolean }) {
+function RasterArtwork({ palette, colors = palette.colors, interactive = false }: { palette: Palette; colors?: Palette['colors']; interactive?: boolean }) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [source, setSource] = useState<ImageData | null>(null)
   const [failed, setFailed] = useState(false)
@@ -64,4 +65,8 @@ export function PaletteArtwork({ palette, colors = palette.colors, interactive =
     {needsCanvas && source && !failed && <canvas ref={canvas} width={source.width} height={source.height} role="img" aria-label={`${palette.name}实时配色预览`} />}
     {failed && <p role="alert" className="artwork-error">效果图暂时无法换色，请刷新重试。</p>}
   </div>
+}
+
+export function PaletteArtwork(props: { palette: Palette; colors?: Palette['colors']; interactive?: boolean }) {
+  return props.palette.gemShape ? <GemstoneArtwork shape={props.palette.gemShape} name={props.palette.name} colors={props.colors ?? props.palette.colors} /> : <RasterArtwork {...props} />
 }

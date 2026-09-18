@@ -9,7 +9,7 @@ export const Route = createRootRoute({
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { title: 'Hue Atlas 色谱 — 色系库' },
-      { name: 'description', content: `探索 ${palettes.length} 套预置色系，复制色值、预览界面配色。` },
+      { name: 'description', content: `探索 ${palettes.length} 套预置色系，浏览经典与宝石分组，实时调色并保存个人色系。` },
     ],
     links: [{ rel: 'stylesheet', href: stylesheet }, { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
   }),

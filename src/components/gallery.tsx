@@ -1,7 +1,7 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useSearch } from '@tanstack/react-router'
 import { ArrowUpRight, Copy, MoveUpRight, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
-import { palettes, readableInk, type Palette } from '@/data/palettes'
+import { palettes, paletteGroups, readableInk, type Palette } from '@/data/palettes'
 import { Header } from '@/components/layout'
 import { PaletteArtwork } from '@/components/palette-artwork'
 import { Button } from '@/components/ui/button'
@@ -35,10 +35,13 @@ function PaletteCard({ palette, saved }: { palette: Palette; saved?: PersonalPal
 
 export function Gallery() {
   const personal = usePersonalPalettes()
+  const { group = 'classic' } = useSearch({ from: '/' })
+  const visiblePalettes = palettes.filter((palette) => palette.group === group)
   return <><Header /><main id="main" className="page-container">
     <section id="palettes" className="collection" aria-labelledby="collection-title">
       <div className="section-heading"><h1 id="collection-title">色系</h1><p>点击色块复制 · 点击封面调色</p></div>
-      <div className="palette-grid">{palettes.map((palette) => <PaletteCard palette={palette} key={palette.id} />)}</div>
+      <nav className="group-nav" aria-label="色系分组">{paletteGroups.map((item) => <Link key={item.id} to="/" search={{ group: item.id }} hash="palettes" resetScroll={false} aria-current={group === item.id ? 'page' : undefined}>{item.name}<span>{palettes.filter((palette) => palette.group === item.id).length}</span></Link>)}</nav>
+      <div className="palette-grid" aria-label={paletteGroups.find((item) => item.id === group)?.name}>{visiblePalettes.map((palette) => <PaletteCard palette={palette} key={palette.id} />)}</div>
     </section>
     <section id="personal" className="personal-collection" aria-labelledby="personal-title">
       <div className="section-heading"><h2 id="personal-title">我的色系</h2><p>保存在当前浏览器</p></div>

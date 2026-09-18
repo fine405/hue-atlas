@@ -38,7 +38,8 @@ export function PaletteDetail({ palette, saved }: { palette: Palette; saved?: Pe
   const [saveOpen, setSaveOpen] = useState(false)
   const [name, setName] = useState(saved?.name ?? `我的${palette.name.replace('色系', '')}`)
   const [nameError, setNameError] = useState('')
-  const next = palettes[(palettes.findIndex((item) => item.id === palette.id) + 1) % palettes.length]
+  const groupPalettes = palettes.filter((item) => item.group === palette.group)
+  const next = groupPalettes[(groupPalettes.findIndex((item) => item.id === palette.id) + 1) % groupPalettes.length]
   const current = { ...palette, name: saved?.name ?? palette.name, colors }
   const modified = colors.some((hex, index) => hex !== palette.colors[index])
 
@@ -56,7 +57,7 @@ export function PaletteDetail({ palette, saved }: { palette: Palette; saved?: Pe
   }
 
   return <><Header palette={current} /><main id="main" className="page-container detail-page">
-    <Link to="/" hash={saved ? 'personal' : 'palettes'} className="back-link"><ArrowLeft size={15} />返回色系库</Link>
+    <Link to="/" search={{ group: palette.group }} hash={saved ? 'personal' : 'palettes'} className="back-link"><ArrowLeft size={15} />返回色系库</Link>
     <div className="detail-heading"><div><p className="eyebrow">{saved ? `我的色系 / ${palette.english}` : palette.english}</p><h1>{current.name}</h1></div>
       <Button variant="outline" onClick={() => copyColors(colors.join(', '))}><Copy data-icon="inline-start" />复制整组色值</Button>
     </div>
