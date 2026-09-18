@@ -1,0 +1,26 @@
+name: 反馈与建议
+description: 报告问题、推荐配色，或分享功能建议。
+title: '[反馈] '
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: 反馈类型
+      options:
+        - 使用问题
+        - 配色建议
+        - 功能建议
+    validations:
+      required: true
+  - type: input
+    id: palette
+    attributes:
+      label: 相关配色
+      placeholder: 配色名称或页面链接（可选）
+  - type: textarea
+    id: description
+    attributes:
+      label: 详细描述
+      description: 如果遇到问题，请提供操作步骤、预期结果与实际结果。请勿填写隐私信息。
+    validations:
+      required: true
