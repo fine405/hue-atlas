@@ -286,4 +286,3 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ring); outline-
 .group-nav a:hover { background: var(--muted); }
 .group-nav a[aria-current=page] { color: var(--foreground); background: var(--secondary); font-weight: 550; }
 .group-nav span { font-size: 10px; font-variant-numeric: tabular-nums; opacity: .65; }
-.gemstone-artwork > svg { display: block; width: 100%; height: auto; }

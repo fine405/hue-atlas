@@ -1,3 +1,46 @@
+# Gemstone photographic fidelity revision
+
+final result: passed
+
+## Findings and resolution
+
+- [P1, resolved] Previous geometric SVG artwork lost the source minerals' silhouettes, natural fractures and internal texture. The user chose reference-photo texture with Canvas recoloring. Replaced all eight illustrations with source crops; removed the procedural renderer and its unused shape metadata.
+- [P2, resolved] Unprotected RGB recoloring can tint a white backdrop and flatten bright highlights. Gemstone recoloring now fades at neutral highlights and deep shadows while keeping the unedited photo exact.
+
+## Visual evidence
+
+- Source: 東丁设计, https://www.douyin.com/note/7353602417352641844. Source slides 1080 × 1440 from `/var/folders/nn/272k0ds16mq_7vpy9jn7xrp80000gn/T/browser-use/assets/4238e82d-cc65-4920-9f6b-b41ba385c8ce/`.
+- Each source crop: (180, 370)–(900, 980), resized proportionally to 519 × 440 and centered on a 720 × 440 white canvas. New assets: `public/artwork/{aquamarine,fluorite,morganite,peridot,barite,dioptase,quartz,tourmaline}.webp`.
+- Opened combined comparison: `test-results/gemstone-photo-comparison.jpg`; all eight original source crops and rendered Canvas screenshots shown together at equal normalized sizes, original colors. Shapes, fractures and textures match; no source title or swatch fragments enter the crops.
+- Focused screenshots: `test-results/gem-{id}.png`, rendered 868 × 531 CSS pixels. Source normalized to the same composition before comparison.
+- Full-view desktop evidence: `test-results/gemstone-gallery.png`, `test-results/quartz-recolored.png`, 1280 × 720 viewport, deviceScaleFactor 1. Mobile evidence: `test-results/gemstone-mobile.png`, 390 × 844 viewport, deviceScaleFactor 1.
+- In-app browser: refreshed the user's current tourmaline detail page and inspected the photographic crystal at original colors. No console errors.
+
+## Required fidelity surfaces
+
+- Typography: app's existing Geist/Chinese fallback and text hierarchy unchanged; source poster typography excluded from artwork deliberately.
+- Spacing/layout: existing 720:440 artwork proportions retained; full mineral silhouettes visible without stretching or clipping; desktop/mobile controls remain in place.
+- Colors/tokens: exact four source HEX colors and ordering retained. Default canvas pixels equal the local source asset. Tests verify altered pixels, unchanged white background, original comparison and exact restoration.
+- Image quality: lossless WebP retains natural photographic textures after proportional downsampling. Preview is a two-dimensional recolorable photo, not an independently reconstructed 3D crystal. Extreme palette changes can still compress tonal range.
+- Copy/content: no additional UI text, controls or source-reference panels. Existing group browsing and personal palettes retained.
+
+## Verification
+
+- Production build/TypeScript and lint passed.
+- 12 browser tests passed, with no page errors. New pixel-level coverage visits all eight gems and checks original-image equality, real recoloring, neutral backdrop and exact reset. Updated persistence tests verify gemstone Canvas editing alongside legacy five-color personal records.
+- Existing group navigation, clipboard, feedback, storage error, mobile, personal save/reload/delete/undo and classic artwork checks pass.
+
+## Checklist
+
+- [x] Replace all eight geometric previews and covers with source-derived photographic assets.
+- [x] Preserve four-color editing, Canvas texture and neutral background.
+- [x] Keep existing personal palettes compatible.
+- [x] Compare source and rendered images, inspect browser and run checks.
+
+Earlier implementation reports below are historical and superseded by this revision.
+
+---
+
 # Gemstone groups and procedural artwork QA
 
 Final result: passed for grouping, exact palette data, editable SVG illustrations and persistence. Photographic fidelity is outside this implementation; the difference was explained before coding.

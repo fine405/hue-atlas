@@ -159,28 +159,22 @@ test('all six reference artworks load and missing personal links recover', async
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('色系')
 })
 
-test('gemstone group has eight four-color SVG palettes and retains group navigation', async ({ page, request }) => {
+test('gemstone group has eight four-color reference palettes and retains group navigation', async ({ page, request }) => {
   const response = await request.get('/?group=gemstones')
   expect(response.status()).toBe(200)
-  expect(await response.text()).toContain('data-gem-shape="aquamarine"')
+  expect(await response.text()).toContain('data-artwork-id="aquamarine"')
   await page.goto('/')
   await page.getByRole('link', { name: '宝石色系 8' }).click()
   await expect(page.locator('#palettes .palette-card')).toHaveCount(8)
   await expect(page.locator('#palettes .card-info h2')).toHaveText(['海蓝宝', '蓝萤石', '摩根石', '橄榄石', '重晶石', '迪奥普塔兹', '蓝石英', '绿碧玺'])
-  await expect(page.locator('.gemstone-artwork svg')).toHaveCount(8)
+  await expect(page.locator('.gemstone-artwork img')).toHaveCount(8)
   await expect(page.locator('#palettes .card-swatches button')).toHaveCount(32)
-  await expect(page.locator('.gemstone-artwork img')).toHaveCount(0)
-  const referencesValid = await page.locator('.gemstone-artwork svg').evaluateAll((svgs) => {
-    const ids = svgs.flatMap((svg) => Array.from(svg.querySelectorAll('[id]'), (node) => node.id))
-    const references = svgs.flatMap((svg) => Array.from(svg.querySelectorAll('*')).flatMap((node) => Array.from(node.attributes).flatMap((attribute) => [...attribute.value.matchAll(/url\(#([^)]*)\)/g)].map((match) => match[1]))))
-    return new Set(ids).size === ids.length && references.every((id) => ids.includes(id))
-  })
-  expect(referencesValid).toBe(true)
+  await expect.poll(() => page.locator('.gemstone-artwork img').evaluateAll((images) => images.every((image) => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth === 720))).toBe(true)
   await page.reload()
   await expect(page.getByRole('link', { name: '宝石色系 8' })).toHaveAttribute('aria-current', 'page')
   await page.screenshot({ path: 'test-results/gemstone-gallery.png', fullPage: true })
   for (const id of ['aquamarine', 'fluorite', 'morganite', 'peridot', 'barite', 'dioptase', 'quartz', 'tourmaline']) {
-    await page.locator(`[data-gem-shape="${id}"]`).screenshot({ path: `test-results/gem-${id}.png` })
+    await page.locator(`[data-artwork-id="${id}"]`).screenshot({ path: `test-results/gem-${id}.png` })
   }
   await page.getByRole('link', { name: '预览绿碧玺' }).click()
   await page.getByRole('link', { name: '海蓝宝', exact: true }).click()
@@ -191,20 +185,22 @@ test('gemstone group has eight four-color SVG palettes and retains group navigat
   await expect(page.locator('#palettes .palette-card')).toHaveCount(6)
 })
 
-test('gemstone SVG colors edit and persist alongside existing five-color personal palettes', async ({ page, context }) => {
+test('gemstone Canvas colors edit and persist alongside existing five-color personal palettes', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write'])
   await page.addInitScript(() => {
     if (!localStorage.getItem('hue-atlas:personal-palettes:v1')) localStorage.setItem('hue-atlas:personal-palettes:v1', JSON.stringify([{ id: 'old-classic', baseId: 'mondrian', name: '原有个人配色', colors: ['#123456', '#1286DD', '#FFF100', '#FFFFFF', '#F66814'] }]))
   })
   await page.goto('/palettes/aquamarine')
   await expect(page.locator('input[type=color]')).toHaveCount(4)
-  const svg = page.locator('.gemstone-artwork svg')
-  const original = await svg.innerHTML()
+  const canvas = page.locator('canvas')
+  const pixels = () => canvas.evaluate((element: HTMLCanvasElement) => Array.from(element.getContext('2d')!.getImageData(360, 180, 1, 1).data))
+  await expect.poll(async () => (await pixels())[3]).toBe(255)
+  const original = await pixels()
   await page.getByLabel('选择颜色 1', { exact: true }).fill('#cc4477')
   await expect(page.getByLabel('颜色 1 HEX')).toHaveValue('#CC4477')
-  await expect.poll(() => svg.innerHTML()).not.toBe(original)
+  await expect.poll(pixels).not.toEqual(original)
   await page.getByRole('button', { name: '查看原色' }).click()
-  expect(await svg.innerHTML()).toBe(original)
+  await expect.poll(pixels).toEqual(original)
   await page.getByRole('button', { name: '返回调色' }).click()
   await page.getByRole('button', { name: '复制整组色值' }).click()
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('#CC4477, #86B6BA, #8E8F8A, #7D7865')
@@ -215,7 +211,7 @@ test('gemstone SVG colors edit and persist alongside existing five-color persona
   await page.reload()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('玫瑰晶簇')
   await expect(page.getByLabel('颜色 1 HEX')).toHaveValue('#CC4477')
-  await expect(page.locator('.gemstone-artwork')).toHaveAttribute('data-gem-shape', 'aquamarine')
+  await expect(page.locator('.gemstone-artwork')).toHaveAttribute('data-artwork-id', 'aquamarine')
   await page.getByRole('link', { name: '返回色系库' }).click()
   await expect(page.locator('#personal .palette-card')).toHaveCount(2)
   await page.getByRole('link', { name: '预览原有个人配色' }).click()
@@ -234,4 +230,36 @@ test('gemstone group and four-color editor fit mobile', async ({ page }) => {
   await page.screenshot({ path: 'test-results/gemstone-mobile.png', fullPage: true })
   await page.getByRole('button', { name: '保存为个人色系' }).click()
   await expect(page.getByRole('button', { name: '确认保存' })).toBeInViewport()
+})
+
+test('all gemstone canvases preserve reference pixels and white backgrounds while recoloring', async ({ page }) => {
+  for (const id of ['aquamarine', 'fluorite', 'morganite', 'peridot', 'barite', 'dioptase', 'quartz', 'tourmaline']) {
+    await page.goto(`/palettes/${id}`)
+    const canvas = page.locator('canvas')
+    const signature = () => canvas.evaluate((element: HTMLCanvasElement) => {
+      const data = element.getContext('2d')!.getImageData(0, 0, element.width, element.height).data
+      let hash = 0
+      for (const byte of data) hash = (Math.imul(hash, 31) + byte) | 0
+      return hash
+    })
+    await expect.poll(() => canvas.evaluate((element: HTMLCanvasElement) => element.getContext('2d')!.getImageData(0, 0, 1, 1).data[3])).toBe(255)
+    expect(await canvas.evaluate((element: HTMLCanvasElement) => {
+      const image = document.querySelector('.artwork img') as HTMLImageElement
+      const source = document.createElement('canvas')
+      source.width = image.naturalWidth; source.height = image.naturalHeight
+      const context = source.getContext('2d')!
+      context.drawImage(image, 0, 0)
+      const original = context.getImageData(0, 0, source.width, source.height).data
+      const rendered = element.getContext('2d')!.getImageData(0, 0, element.width, element.height).data
+      return original.every((value, index) => value === rendered[index])
+    })).toBe(true)
+    const original = await signature()
+    await page.locator('.artwork').screenshot({ path: `test-results/gem-${id}.png` })
+    for (let i = 1; i <= 4; i++) await page.getByLabel(`颜色 ${i} HEX`).fill('#CC4477')
+    await expect.poll(signature).not.toBe(original)
+    expect(await canvas.evaluate((element: HTMLCanvasElement) => Array.from(element.getContext('2d')!.getImageData(10, 10, 1, 1).data))).toEqual([255, 255, 255, 255])
+    if (id === 'quartz') await page.screenshot({ path: 'test-results/quartz-recolored.png', fullPage: true })
+    await page.getByRole('button', { name: '恢复原色' }).click()
+    await expect.poll(signature).toBe(original)
+  }
 })

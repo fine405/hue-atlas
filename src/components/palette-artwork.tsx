@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { GemstoneArtwork } from '@/components/gemstone-artwork'
 import type { Palette } from '@/data/palettes'
 
 const rgb = (hex: string) => [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16))
 
 // Soft color masks move each source color toward the edited palette while
 // retaining the source's fine texture. Zero deltas reproduce the image exactly.
-function recolor(source: ImageData, original: string[], colors: string[], preserveInk: boolean) {
+function recolor(source: ImageData, original: string[], colors: string[], preserveInk: boolean, preserveLight: boolean) {
   const anchors = original.map(rgb)
   const deltas = colors.map((hex, index) => rgb(hex).map((value, channel) => value - anchors[index][channel]))
   const lut = new Float32Array(32 * 32 * 32 * 3)
@@ -21,12 +20,16 @@ function recolor(source: ImageData, original: string[], colors: string[], preser
   const output = new ImageData(new Uint8ClampedArray(source.data), source.width, source.height)
   for (let i = 0; i < source.data.length; i += 4) {
     const offset = (((source.data[i] >> 3) * 32 + (source.data[i + 1] >> 3)) * 32 + (source.data[i + 2] >> 3)) * 3
-    for (let channel = 0; channel < 3; channel++) output.data[i + channel] += lut[offset + channel]
+    // Gem backgrounds and specular highlights stay neutral; deep shadows retain depth.
+    const low = Math.min(source.data[i], source.data[i + 1], source.data[i + 2])
+    const high = Math.max(source.data[i], source.data[i + 1], source.data[i + 2])
+    const exposure = preserveLight ? Math.min(1, high / 48, Math.max(0, (247 - low) / 48)) : 1
+    for (let channel = 0; channel < 3; channel++) output.data[i + channel] += lut[offset + channel] * exposure
   }
   return output
 }
 
-function RasterArtwork({ palette, colors = palette.colors, interactive = false }: { palette: Palette; colors?: Palette['colors']; interactive?: boolean }) {
+export function PaletteArtwork({ palette, colors = palette.colors, interactive = false }: { palette: Palette; colors?: Palette['colors']; interactive?: boolean }) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [source, setSource] = useState<ImageData | null>(null)
   const [failed, setFailed] = useState(false)
@@ -56,17 +59,13 @@ function RasterArtwork({ palette, colors = palette.colors, interactive = false }
     const frame = requestAnimationFrame(() => {
       const context = canvas.current?.getContext('2d')
       if (!context) { setFailed(true); return }
-      context.putImageData(edited ? recolor(source, palette.colors, colors, palette.id === 'memphis' || palette.id === 'mondrian') : source, 0, 0)
+      context.putImageData(edited ? recolor(source, palette.colors, colors, palette.id === 'memphis' || palette.id === 'mondrian', palette.group === 'gemstones') : source, 0, 0)
     })
     return () => cancelAnimationFrame(frame)
   }, [source, colors, edited, palette])
-  return <div className="artwork" data-render-state={failed ? 'error' : source || !needsCanvas ? 'ready' : 'loading'}>
-    <img src={src} alt={`${palette.name}效果图`} width="1080" height={palette.id === 'morandi' ? 664 : palette.id === 'mondrian' ? 654 : palette.id === 'memphis' ? 660 : 659} />
+  return <div className={palette.group === 'gemstones' ? 'artwork gemstone-artwork' : 'artwork'} data-artwork-id={palette.id} data-render-state={failed ? 'error' : source || !needsCanvas ? 'ready' : 'loading'}>
+    <img src={src} alt={`${palette.name}效果图`} width={palette.group === 'gemstones' ? 720 : 1080} height={palette.group === 'gemstones' ? 440 : palette.id === 'morandi' ? 664 : palette.id === 'mondrian' ? 654 : palette.id === 'memphis' ? 660 : 659} />
     {needsCanvas && source && !failed && <canvas ref={canvas} width={source.width} height={source.height} role="img" aria-label={`${palette.name}实时配色预览`} />}
     {failed && <p role="alert" className="artwork-error">效果图暂时无法换色，请刷新重试。</p>}
   </div>
-}
-
-export function PaletteArtwork(props: { palette: Palette; colors?: Palette['colors']; interactive?: boolean }) {
-  return props.palette.gemShape ? <GemstoneArtwork shape={props.palette.gemShape} name={props.palette.name} colors={props.colors ?? props.palette.colors} /> : <RasterArtwork {...props} />
 }

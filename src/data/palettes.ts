@@ -3,12 +3,10 @@ export const paletteGroups = [
   { id: 'gemstones', name: '宝石色系' },
 ] as const
 export type PaletteGroup = typeof paletteGroups[number]['id']
-export type GemShape = 'aquamarine' | 'fluorite' | 'morganite' | 'peridot' | 'barite' | 'dioptase' | 'quartz' | 'tourmaline'
 
 export type Palette = {
   id: string
   group: PaletteGroup
-  gemShape?: GemShape
   name: string
   english: string
   mood: string
@@ -72,56 +70,56 @@ export const palettes: Palette[] = [
     source: designReference, group: 'classic',
   },
   {
-    id: 'aquamarine', group: 'gemstones', gemShape: 'aquamarine', name: '海蓝宝', english: 'Aquamarine', mood: '清透 · 冰蓝',
+    id: 'aquamarine', group: 'gemstones', name: '海蓝宝', english: 'Aquamarine', mood: '清透 · 冰蓝',
     description: '海蓝宝矿物晶体的自然配色。',
     colors: ['#5F888A', '#86B6BA', '#8E8F8A', '#7D7865'],
     primary: '#5F888A', foreground: '#20201E', background: '#FFFFFF', muted: '#8E8F8A',
     source: { title: '東丁设计 · 大自然配色', url: 'https://www.douyin.com/note/7353602417352641844' },
   },
   {
-    id: 'fluorite', group: 'gemstones', gemShape: 'fluorite', name: '蓝萤石', english: 'Blue Fluorite', mood: '幽蓝 · 层叠',
+    id: 'fluorite', group: 'gemstones', name: '蓝萤石', english: 'Blue Fluorite', mood: '幽蓝 · 层叠',
     description: '蓝萤石矿物晶体的自然配色。',
     colors: ['#424278', '#2A4A73', '#6C6284', '#7994B2'],
     primary: '#424278', foreground: '#20201E', background: '#FFFFFF', muted: '#6C6284',
     source: { title: '東丁设计 · 大自然配色', url: 'https://www.douyin.com/note/7353602417352641844' },
   },
   {
-    id: 'morganite', group: 'gemstones', gemShape: 'morganite', name: '摩根石', english: 'Morganite', mood: '柔粉 · 晶莹',
+    id: 'morganite', group: 'gemstones', name: '摩根石', english: 'Morganite', mood: '柔粉 · 晶莹',
     description: '摩根石矿物晶体的自然配色。',
     colors: ['#DC8B87', '#E1BBBA', '#E1D3D3', '#69957A'],
     primary: '#DC8B87', foreground: '#20201E', background: '#FFFFFF', muted: '#E1D3D3',
     source: { title: '東丁设计 · 大自然配色', url: 'https://www.douyin.com/note/7353602417352641844' },
   },
   {
-    id: 'peridot', group: 'gemstones', gemShape: 'peridot', name: '橄榄石', english: 'Peridot', mood: '青绿 · 透亮',
+    id: 'peridot', group: 'gemstones', name: '橄榄石', english: 'Peridot', mood: '青绿 · 透亮',
     description: '橄榄石矿物晶体的自然配色。',
     colors: ['#507901', '#7A964C', '#AAD351', '#DBEB57'],
     primary: '#507901', foreground: '#20201E', background: '#FFFFFF', muted: '#AAD351',
     source: { title: '東丁设计 · 大自然配色', url: 'https://www.douyin.com/note/7353602417352641844' },
   },
   {
-    id: 'barite', group: 'gemstones', gemShape: 'barite', name: '重晶石', english: 'Barite', mood: '蜜金 · 温润',
+    id: 'barite', group: 'gemstones', name: '重晶石', english: 'Barite', mood: '蜜金 · 温润',
     description: '重晶石矿物晶体的自然配色。',
     colors: ['#D49432', '#F1D45F', '#FFF5D1', '#795845'],
     primary: '#D49432', foreground: '#20201E', background: '#FFFFFF', muted: '#FFF5D1',
     source: { title: '東丁设计 · 大自然配色', url: 'https://www.douyin.com/note/7353602417352641844' },
   },
   {
-    id: 'dioptase', group: 'gemstones', gemShape: 'dioptase', name: '迪奥普塔兹', english: 'Dioptase', mood: '深翠 · 冷冽',
+    id: 'dioptase', group: 'gemstones', name: '迪奥普塔兹', english: 'Dioptase', mood: '深翠 · 冷冽',
     description: '迪奥普塔兹矿物晶体的自然配色。',
     colors: ['#146576', '#347071', '#0A989C', '#45DEDB'],
     primary: '#146576', foreground: '#20201E', background: '#FFFFFF', muted: '#0A989C',
     source: { title: '東丁设计 · 大自然配色', url: 'https://www.douyin.com/note/7353602417352641844' },
   },
   {
-    id: 'quartz', group: 'gemstones', gemShape: 'quartz', name: '蓝石英', english: 'Blue Quartz', mood: '澄蓝 · 纯净',
+    id: 'quartz', group: 'gemstones', name: '蓝石英', english: 'Blue Quartz', mood: '澄蓝 · 纯净',
     description: '蓝石英矿物晶体的自然配色。',
     colors: ['#158BA9', '#40DEEA', '#9CCCF4', '#C2EDFD'],
     primary: '#158BA9', foreground: '#20201E', background: '#FFFFFF', muted: '#9CCCF4',
     source: { title: '東丁设计 · 大自然配色', url: 'https://www.douyin.com/note/7353602417352641844' },
   },
   {
-    id: 'tourmaline', group: 'gemstones', gemShape: 'tourmaline', name: '绿碧玺', english: 'Green Tourmaline', mood: '碧绿 · 通透',
+    id: 'tourmaline', group: 'gemstones', name: '绿碧玺', english: 'Green Tourmaline', mood: '碧绿 · 通透',
     description: '绿碧玺矿物晶体的自然配色。',
     colors: ['#1D908D', '#3CB28F', '#2ADFCE', '#95DFC8'],
     primary: '#1D908D', foreground: '#20201E', background: '#FFFFFF', muted: '#2ADFCE',
