@@ -1,35 +1,50 @@
 import { Link } from '@tanstack/react-router'
-import { ArrowUpRight, Copy, MoveUpRight } from 'lucide-react'
+import { ArrowUpRight, Copy, MoveUpRight, Trash2 } from 'lucide-react'
+import { toast } from 'sonner'
 import { palettes, readableInk, type Palette } from '@/data/palettes'
 import { Header } from '@/components/layout'
+import { PaletteArtwork } from '@/components/palette-artwork'
+import { Button } from '@/components/ui/button'
 import { copyColors } from '@/lib/clipboard'
+import { usePersonalPalettes, deletePersonalPalette, savePersonalPalette, type PersonalPalette } from '@/lib/personal-palettes'
 
-function PaletteCard({ palette, index }: { palette: Palette; index: number }) {
+function PaletteCard({ palette, saved }: { palette: Palette; saved?: PersonalPalette }) {
+  const colors = saved?.colors ?? palette.colors
+  const name = saved?.name ?? palette.name
+  const search = saved ? { saved: saved.id } : {}
+  function remove() {
+    if (!saved) return
+    try {
+      deletePersonalPalette(saved.id)
+      toast.success('已删除个人色系', { action: { label: '撤销', onClick: () => {
+        try { savePersonalPalette(saved) } catch { toast.error('恢复失败，请检查浏览器存储设置。') }
+      } } })
+    } catch { toast.error('删除失败，请检查浏览器存储设置。') }
+  }
   return <article className="palette-card">
-    <Link to="/palettes/$paletteId" params={{ paletteId: palette.id }} className={`palette-art art-${index % 4}`} style={{ '--p0': palette.colors[0], '--p1': palette.colors[1], '--p2': palette.colors[2], '--p3': palette.colors[3], '--p4': palette.colors[4], '--art-ink': readableInk(palette.colors[4]) } as React.CSSProperties} aria-label={`预览${palette.name}`}>
-      <div className="art-composition" aria-hidden="true"><i /><i /><i /><i /></div>
+    <Link to="/palettes/$paletteId" params={{ paletteId: palette.id }} search={search} className="palette-art" aria-label={`预览${name}`}>
+      <PaletteArtwork palette={palette} colors={colors} />
       <span className="art-arrow"><MoveUpRight size={17} /></span>
     </Link>
-    <div className="card-swatches" aria-label={`${palette.name}色值`}>
-      {palette.colors.map((hex) => <button type="button" key={hex} title={`复制 ${hex}`} aria-label={`复制 ${hex}`} onClick={() => copyColors(hex)} style={{ background: hex, color: readableInk(hex) }}><span>{hex}</span><Copy size={13} aria-hidden="true" /></button>)}
+    <div className="card-swatches" aria-label={`${name}色值`}>
+      {colors.map((hex, index) => <button type="button" key={index} title={`复制 ${hex}`} aria-label={`复制 ${hex}`} onClick={() => copyColors(hex)} style={{ background: hex, color: readableInk(hex) }}><span>{hex}</span><Copy size={13} aria-hidden="true" /></button>)}
     </div>
-    <div className="card-info"><div><Link to="/palettes/$paletteId" params={{ paletteId: palette.id }}><h2>{palette.name}<ArrowUpRight size={16} /></h2></Link><p>{palette.english}</p></div><span className="mood">{palette.mood}</span></div>
+    <div className="card-info"><div><Link to="/palettes/$paletteId" params={{ paletteId: palette.id }} search={search}><h2>{name}<ArrowUpRight size={16} /></h2></Link><p>{palette.english}</p></div>{saved ? <Button variant="ghost" size="icon-sm" aria-label={`删除${name}`} onClick={remove}><Trash2 size={15} /></Button> : <span className="mood">{palette.mood}</span>}</div>
   </article>
 }
 
 export function Gallery() {
-  return <>
-    <Header />
-    <main id="main" className="page-container">
-      <section id="palettes" className="collection" aria-labelledby="collection-title">
-        <div className="section-heading">
-          <h1 id="collection-title">色系</h1>
-          <p>点击色块复制 · 点击封面预览</p>
-        </div>
-        <div className="palette-grid">
-          {palettes.map((palette, index) => <PaletteCard palette={palette} index={index} key={palette.id} />)}
-        </div>
-      </section>
-    </main>
-  </>
+  const personal = usePersonalPalettes()
+  return <><Header /><main id="main" className="page-container">
+    <section id="palettes" className="collection" aria-labelledby="collection-title">
+      <div className="section-heading"><h1 id="collection-title">色系</h1><p>点击色块复制 · 点击封面调色</p></div>
+      <div className="palette-grid">{palettes.map((palette) => <PaletteCard palette={palette} key={palette.id} />)}</div>
+    </section>
+    <section id="personal" className="personal-collection" aria-labelledby="personal-title">
+      <div className="section-heading"><h2 id="personal-title">我的色系</h2><p>保存在当前浏览器</p></div>
+      {personal.error ? <p role="alert" className="personal-empty">无法读取个人色系，请检查浏览器存储设置。已有数据未被覆盖。</p> : personal.items.length ?
+        <div className="palette-grid">{personal.items.map((saved) => <PaletteCard key={saved.id} saved={saved} palette={palettes.find((palette) => palette.id === saved.baseId)!} />)}</div> :
+        <p className="personal-empty">{personal.ready ? '打开喜欢的色系，调出你的配色并保存到这里。' : '正在读取个人色系…'}</p>}
+    </section>
+  </main></>
 }
