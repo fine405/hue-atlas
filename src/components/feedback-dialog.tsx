@@ -30,8 +30,8 @@ export function FeedbackDialog({ palette, label = '意见反馈' }: { palette?: 
     <DialogTrigger asChild><Button variant="outline" size="lg"><MessageSquare data-icon="inline-start" />{label}</Button></DialogTrigger>
     <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-lg">
       <DialogHeader>
-        <DialogTitle>让色谱，多一点你的想法。</DialogTitle>
-        <DialogDescription>发现问题，或是想到一组好颜色？我们期待你的建议。</DialogDescription>
+        <DialogTitle>意见反馈</DialogTitle>
+        <DialogDescription>报告问题或提出配色建议。</DialogDescription>
       </DialogHeader>
       <form onSubmit={submit} noValidate className="flex flex-col gap-6">
         <FieldGroup>

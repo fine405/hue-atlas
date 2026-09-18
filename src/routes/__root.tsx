@@ -8,8 +8,8 @@ export const Route = createRootRoute({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'Hue Atlas 色谱 — 为好设计，找到好颜色' },
-      { name: 'description', content: `探索 ${palettes.length} 套精心搭配的色系，复制色值、预览真实界面。Hue Atlas 色谱，设计灵感的下一站。` },
+      { title: 'Hue Atlas 色谱 — 色系库' },
+      { name: 'description', content: `探索 ${palettes.length} 套预置色系，复制色值、预览界面配色。` },
     ],
     links: [{ rel: 'stylesheet', href: stylesheet }, { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
   }),
