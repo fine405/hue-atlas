@@ -1,0 +1,114 @@
+[
+  {
+    "id": "mondrian",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/mondrian.webp",
+    "output": "public/artwork/mondrian-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-b0e4cf62-8da2-4e6f-a134-7a16f2e85e58.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high-resolution color palette artwork. Input image 1 is the edit target. Recreate it as a crisp high-resolution finished image with improved resolved detail. Flat Mondrian-like geometric color block composition with thick perfectly crisp black orthogonal lines. Preserve EVERY rectangular division and its exact relative position, line thickness, original colors including red, blue, yellow, warm off-white, dusty peach and sage. Flat solid fills, clean precise corners. Edge-to-edge composition. Do not invent new subdivisions or change proportions. Preserve the original composition, framing, palette, mood and subject scale very closely. Landscape approximately 2560x1568; fill the whole image with artwork, no added margins. No lettering, labels, watermarks, frames, UI, new objects or added decoration. Only improve image clarity and rendering quality."
+  },
+  {
+    "id": "memphis",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/memphis.webp",
+    "output": "public/artwork/memphis-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-127bab2a-4a0f-4260-ab96-a757d720172c.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high-resolution color palette artwork. Input image 1 is the edit target. Recreate it as a crisp high-resolution finished image with improved resolved detail. Playful flat Memphis repeat pattern on clean white: teal and yellow spirals, pink and teal jagged zigzags, colored irregular rounded triangles with black offset shadows, dots, striped strokes, black outline triangle motifs. Closely preserve the exact visual arrangement, motif sizes, colors and density from the supplied reference. Crisp high-resolution printed graphic edges, preserving hand-drawn irregularity, not blurry or fuzzy. Preserve the original composition, framing, palette, mood and subject scale very closely. Landscape approximately 2560x1568; fill the whole image with artwork, no added margins. No lettering, labels, watermarks, frames, UI, new objects or added decoration. Only improve image clarity and rendering quality."
+  },
+  {
+    "id": "rococo",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/rococo.webp",
+    "output": "public/artwork/rococo-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-96b193bd-0ebf-4be5-ba39-517cdc108346.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high-resolution color palette artwork. Input image 1 is the edit target. Recreate it as a crisp high-resolution finished image with improved resolved detail. Rococo pastoral oil painting as in the reference: woman seated on right beneath an arching tree, pale blue skirt and bonnet, white blouse, dusty pink bodice and draped golden-yellow fabric, right arm raised, left hand gesturing; lamb beside her at center, flowers in basket lower left, pale hat lower right, cool misty wooded blue-green landscape. Preserve pose, character placement, proportions, painterly style and soft light. Reconstruct clear delicate brushwork and facial/foliage/fabric details while keeping it a painting, not a photograph. Preserve the original composition, framing, palette, mood and subject scale very closely. Landscape approximately 2560x1568; fill the whole image with artwork, no added margins. No lettering, labels, watermarks, frames, UI, new objects or added decoration. Only improve image clarity and rendering quality."
+  },
+  {
+    "id": "macaron",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/macaron.webp",
+    "output": "public/artwork/macaron-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-f49a1aae-8e4d-40d1-acc7-80fb3fd2971a.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high-resolution color palette artwork. Input image 1 is the edit target. Recreate as a much clearer high-resolution image closely matching this reference. Food macro photography of exactly the same dense five-by-five arrangement of macarons, cropped edge-to-edge. Keep each macaron position, pastel green/lavender/ivory/amber/pink colors and dark gaps as in the reference. Fine crisp shell pores, delicate ruffled feet, smooth slightly domed tops and visible cream fillings. Full tray in focus, soft natural light. Preserve photograph style and appetizing realistic texture. Preserve original composition and crop, with improved resolved details. Landscape approximately 2560x1568 requested, artwork filling the canvas edge to edge. No new objects, no added margins, no text, watermark, frame or UI. Maintain original art direction; do not change the scene or palette."
+  },
+  {
+    "id": "dunhuang",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/dunhuang.webp",
+    "output": "public/artwork/dunhuang-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-b54a8392-d307-4ab2-b482-1fb642fbc931.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high-resolution color palette artwork. Input image 1 is the edit target. Recreate as a much clearer high-resolution image closely matching this reference. A faithful reconstruction of this traditional Dunhuang Buddhist mural crop, showing the same central dancer and surrounding seated musicians, altar and censer at upper center, same figures, poses, instruments, flowing robes and decorative scrollwork. Mineral pigment palette: muted turquoise, pale sand, ochre, dark ink and rust. Preserve every major figure and composition; resolve fine hand-painted contours and aged plaster pigment detail. Keep historical mural painting style, flat traditional perspective, NOT a photograph or a modern digital cartoon. Preserve original composition and crop, with improved resolved details. Landscape approximately 2560x1568 requested, artwork filling the canvas edge to edge. No new objects, no added margins, no text, watermark, frame or UI. Maintain original art direction; do not change the scene or palette."
+  },
+  {
+    "id": "morandi",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/morandi.webp",
+    "output": "public/artwork/morandi-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-9a7d7681-eb7d-4a5f-9e36-b3e4e70a24fa.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high-resolution color palette artwork. Input image 1 is the edit target. Recreate as a much clearer high-resolution image closely matching this reference. The same close-up abstract impasto paint composition: sweeping cream-white paint band crossing diagonally from lower-left toward upper-right, dusty sage field above, muted mustard arc at upper-left, gray olive and dark blue-green at lower-right, slender gently curving gold contour lines. Reconstruct tactile palette-knife ridges, natural scraped paint grooves and tiny pigment texture. Preserve the exact placement, relative sizes and low-saturation colors. Soft side lighting on real thick paint relief. Preserve original composition and crop, with improved resolved details. Landscape approximately 2560x1568 requested, artwork filling the canvas edge to edge. No new objects, no added margins, no text, watermark, frame or UI. Maintain original art direction; do not change the scene or palette."
+  },
+  {
+    "id": "aquamarine",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/aquamarine.webp",
+    "output": "public/artwork/aquamarine-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-b1e915af-8aa4-4b03-8251-b61b87dcb787.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high-resolution photographic palette artwork for a web app. Input image 1 is the edit target: aquamarine mineral specimen. Re-render this exact composition as a tack-sharp, high-resolution macro studio photograph, approximately 2560x1568 landscape. Preserve the specimen's silhouette, placement, scale, view angle, arrangement of pale icy blue translucent flat hexagonal crystals and layered silver-beige mica base. Preserve original colors, natural asymmetry, white background and white margins. Recover clear mineral microtexture, fine fractures, transparent interiors and layered mica edges, using natural physically plausible detail rather than excessive sharpening. All crystal faces in focus, soft even studio illumination. Keep the original subject identity and composition as closely as possible. No stylization, no geometric illustration, no extra crystals, no pedestal, no text, no labels, no borders. The output should be a single finished high-resolution image suitable for direct use in the app."
+  },
+  {
+    "id": "fluorite",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/fluorite.webp",
+    "output": "public/artwork/fluorite-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-2f35af63-1984-46e6-b806-d893d876862d.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high resolution web palette artwork. Input image 1 is the edit target: fluorite. Re-render the same an irregular cluster of translucent blue-violet cubic fluorite crystals, dark black mineral matrix on the left and pale cream calcite near upper left; densely overlapping angular cubes with cool slate-blue and muted purple tones as extremely sharp, high-resolution macro mineral photography, landscape 2560 by 1568 pixels requested. Preserve original silhouette, composition, subject size, viewing angle, colors and amount of white margin. All important surfaces in focus, tiny realistic crystal fractures and microtexture, convincing internal transparency and natural specular glints. Pure white studio background including all four corners; no gray vignette. Soft even studio light. Improve clarity and resolve blurred details while preserving the photographic reference closely. Do not make it look like a smooth synthetic CGI gem or a faceted illustration. No additions, labels, letters, watermarks, frame or pedestal. Single finished image."
+  },
+  {
+    "id": "morganite",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/morganite.webp",
+    "output": "public/artwork/morganite-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-f996faef-a398-4d12-944e-9273ec0914e3.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high resolution web palette artwork. Input image 1 is the edit target: morganite. Re-render the same one large squat broad pink morganite crystal with a hexagonal top, darker rose translucent central cavity, delicate fractured interior, chalky white and mint-green associated minerals in the foreground as extremely sharp, high-resolution macro mineral photography, landscape 2560 by 1568 pixels requested. Preserve original silhouette, composition, subject size, viewing angle, colors and amount of white margin. All important surfaces in focus, tiny realistic crystal fractures and microtexture, convincing internal transparency and natural specular glints. Pure white studio background including all four corners; no gray vignette. Soft even studio light. Improve clarity and resolve blurred details while preserving the photographic reference closely. Do not make it look like a smooth synthetic CGI gem or a faceted illustration. No additions, labels, letters, watermarks, frame or pedestal. Single finished image."
+  },
+  {
+    "id": "peridot",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/peridot.webp",
+    "output": "public/artwork/peridot-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-20a9e284-fadd-4d9b-8d99-e5e6e09e8fc1.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high resolution web palette artwork. Input image 1 is the edit target: peridot. Re-render the same a compact group of three irregular natural peridot columns, brilliant yellow-green transparent interiors, rough dark olive etched tops, subtle black needle inclusions and irregular weathered base as extremely sharp, high-resolution macro mineral photography, landscape 2560 by 1568 pixels requested. Preserve original silhouette, composition, subject size, viewing angle, colors and amount of white margin. All important surfaces in focus, tiny realistic crystal fractures and microtexture, convincing internal transparency and natural specular glints. Pure white studio background including all four corners; no gray vignette. Soft even studio light. Improve clarity and resolve blurred details while preserving the photographic reference closely. Do not make it look like a smooth synthetic CGI gem or a faceted illustration. No additions, labels, letters, watermarks, frame or pedestal. Single finished image."
+  },
+  {
+    "id": "barite",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/barite.webp",
+    "output": "public/artwork/barite-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-cb01ff17-b3e8-4fe7-be36-378535e19f65.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high-resolution photographic web palette artwork. Input image 1 is the edit target: barite. Re-render the same a group of broad golden amber and smoky gray translucent bladed barite crystals, two tall slabs rising behind a spray of small pale honey crystals on a rough gray mineral base as tack-sharp high-resolution macro mineral photography, requested 2560x1568 landscape. Closely preserve its exact overall silhouette, proportions, position, scale, camera view and color distribution. Reconstruct natural microfractures, etched surfaces and internal mineral inclusions with convincing translucency; soft realistic highlights, full specimen in focus. White studio background with pure white corners and the same surrounding empty margins. No extra objects, no pedestal, text, watermark, frame or graphic elements. No stylized illustration, no low-poly appearance, no synthetic plastic smoothness. Preserve source identity while replacing blurry compressed texture with crisp photographic detail."
+  },
+  {
+    "id": "dioptase",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/dioptase.webp",
+    "output": "public/artwork/dioptase-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-0a4fb867-7276-4cfe-acdd-6ef50e7f7958.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high-resolution photographic web palette artwork. Input image 1 is the edit target: dioptase. Re-render the same a tall narrow irregular dark emerald-teal mineral cluster, two larger glossy block crystals at top and many smaller glassy geometric crystals below, natural black shadows and pale beige-white stone matrix along its edges as tack-sharp high-resolution macro mineral photography, requested 2560x1568 landscape. Closely preserve its exact overall silhouette, proportions, position, scale, camera view and color distribution. Reconstruct natural microfractures, etched surfaces and internal mineral inclusions with convincing translucency; soft realistic highlights, full specimen in focus. White studio background with pure white corners and the same surrounding empty margins. No extra objects, no pedestal, text, watermark, frame or graphic elements. No stylized illustration, no low-poly appearance, no synthetic plastic smoothness. Preserve source identity while replacing blurry compressed texture with crisp photographic detail."
+  },
+  {
+    "id": "quartz",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/quartz.webp",
+    "output": "public/artwork/quartz-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-a2f292bd-991a-475c-9976-6f196c93164e.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high-resolution photographic web palette artwork. Input image 1 is the edit target: quartz. Re-render the same a single upright cyan blue quartz crystal, small flat dark blue tip, tapering slanted upper faces, broad transparent cyan front, pale blue reflective side facets, rough irregular fractured icy base with fine internal inclusions as tack-sharp high-resolution macro mineral photography, requested 2560x1568 landscape. Closely preserve its exact overall silhouette, proportions, position, scale, camera view and color distribution. Reconstruct natural microfractures, etched surfaces and internal mineral inclusions with convincing translucency; soft realistic highlights, full specimen in focus. White studio background with pure white corners and the same surrounding empty margins. No extra objects, no pedestal, text, watermark, frame or graphic elements. No stylized illustration, no low-poly appearance, no synthetic plastic smoothness. Preserve source identity while replacing blurry compressed texture with crisp photographic detail."
+  },
+  {
+    "id": "tourmaline",
+    "mode": "built-in image_gen edit",
+    "reference": "public/artwork/tourmaline.webp",
+    "output": "public/artwork/tourmaline-hd.webp",
+    "generatedFile": "/Users/boqingyun/.codex/generated_images/01a0b27f-bb44-7a40-b83d-953ff1c0fff6/exec-4159451f-b974-4624-b1f8-6e538e7c232e.png",
+    "prompt": "Use case: precise-object-edit. Asset type: high-resolution photographic web palette artwork. Input image 1 is the edit target: tourmaline. Re-render the same a single tall green tourmaline column, slightly stepped outline on the right, flat irregular dark green top, intense emerald-teal middle, pale gray translucent foot, very fine longitudinal grooves and black-green transparent internal bands as tack-sharp high-resolution macro mineral photography, requested 2560x1568 landscape. Closely preserve its exact overall silhouette, proportions, position, scale, camera view and color distribution. Reconstruct natural microfractures, etched surfaces and internal mineral inclusions with convincing translucency; soft realistic highlights, full specimen in focus. White studio background with pure white corners and the same surrounding empty margins. No extra objects, no pedestal, text, watermark, frame or graphic elements. No stylized illustration, no low-poly appearance, no synthetic plastic smoothness. Preserve source identity while replacing blurry compressed texture with crisp photographic detail."
+  }
+]

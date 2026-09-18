@@ -1,3 +1,33 @@
+# ImageGen high-resolution artwork replacement
+
+final result: passed
+
+## Scope and source
+
+- User explicitly requested ImageGen regeneration after source-resolution fixes were insufficient.
+- Used built-in `image_gen` edit calls, one per asset, for all 14 palettes. No CLI fallback. Each local reference was viewed first; all generated outputs were inspected.
+- Reference targets: `public/artwork/{id}.webp`. New app assets: `public/artwork/{id}-hd.webp`; original inputs remain intact. Prompts and provenance: `docs/imagegen-prompts.json`.
+- Actual generated dimensions: widths 1602–1604, heights 981–982. Outputs converted losslessly to WebP at native size. Requested prompt dimensions are not represented as actual dimensions.
+
+## Visual comparison
+
+- Opened `test-results/imagegen-comparison.jpg`: all 14 original/reference and generated pairs normalized to equal display width. Overall layout, subject identity and palette retained; crystal microtexture, pattern edges, food texture and painted details are clearer.
+- Intentional user-authorized difference: AI reconstructs details; Rococo foliage/faces, mural linework, paint ridges and crystal inclusions are not exact records of the original. Do not describe this as lossless photographic restoration.
+- Browser evidence regenerated for both galleries, all 14 artwork-only views, mobile editor and Retina previews. In-app aquamarine detail refreshed and inspected with the new image. Console error list empty.
+- Normal desktop: 1280 × 720 CSS, density 1. Retina tests: 1280 × 900 CSS, density 2. Mobile: 390 × 844 CSS, density 1.
+- Required fidelity surfaces: typography and UI copy unchanged; layout uses actual asset dimensions without stretching; exact HEX swatches unchanged; images contain no added text or frames; all previews share the same selected asset. Original scene identity and material appearance remain recognizable.
+
+## Implementation and checks
+
+- Added actual image path/size manifest, switched the shared gallery/detail renderer to the generated assets, removed extra algorithmic sharpening to avoid harsh edges.
+- Build/TypeScript and lint passed. All 13 browser tests passed, covering all 14 artwork loads, Retina rendering/resize, native-picker changes, exact original/reset, near-white background preservation, saved personal palettes, clipboard, group navigation, feedback and mobile.
+- Default Canvas pixels equal the generated asset at native resolution. Background checks now compare against the asset's original near-white value rather than assuming perfect RGB 255.
+- Old assets and personal palette IDs retained. No schema migration or new dependencies.
+
+No remaining actionable P0/P1/P2 findings. Historical reports below are superseded by the generated-artwork workflow.
+
+---
+
 # Image clarity and high-density rendering
 
 final result: passed

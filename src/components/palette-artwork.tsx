@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Palette } from '@/data/palettes'
+import { artworkAssets } from '@/data/artwork'
 
 const rgb = (hex: string) => [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16))
 
@@ -29,23 +30,6 @@ function recolor(source: ImageData, original: string[], colors: string[], preser
   return output
 }
 
-// A bounded luminance-only sharpen improves local edges without shifting hue.
-// Run once per image; picker updates reuse the prepared source.
-function sharpen(source: ImageData) {
-  const { width, height, data } = source
-  const light = new Float32Array(width * height)
-  for (let i = 0; i < light.length; i++) light[i] = data[i * 4] * .2126 + data[i * 4 + 1] * .7152 + data[i * 4 + 2] * .0722
-  const output = new ImageData(new Uint8ClampedArray(data), width, height)
-  for (let y = 1; y < height - 1; y++) for (let x = 1; x < width - 1; x++) {
-    const i = y * width + x
-    const detail = light[i] - (light[i - 1] + light[i + 1] + light[i - width] + light[i + width]) / 4
-    if (Math.abs(detail) < 3) continue
-    const boost = Math.max(-10, Math.min(10, detail * .65))
-    for (let c = 0; c < 3; c++) output.data[i * 4 + c] += boost
-  }
-  return output
-}
-
 export function PaletteArtwork({ palette, colors = palette.colors, interactive = false }: { palette: Palette; colors?: Palette['colors']; interactive?: boolean }) {
   const container = useRef<HTMLDivElement>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
@@ -55,7 +39,7 @@ export function PaletteArtwork({ palette, colors = palette.colors, interactive =
   const [failed, setFailed] = useState(false)
   const edited = colors.some((hex, index) => hex !== palette.colors[index])
   const needsCanvas = interactive || edited
-  const src = `/artwork/${palette.id}.webp`
+  const { src, width, height } = artworkAssets[palette.id]
   const renderWidth = source ? Math.max(source.width, pixelWidth) : 0
   const renderHeight = source ? Math.round(renderWidth * source.height / source.width) : 0
   useEffect(() => {
@@ -91,7 +75,7 @@ export function PaletteArtwork({ palette, colors = palette.colors, interactive =
       const context = surface.getContext('2d', { willReadFrequently: true })
       if (!context) { setFailed(true); return }
       context.drawImage(image, 0, 0)
-      setSource(sharpen(context.getImageData(0, 0, surface.width, surface.height)))
+      setSource(context.getImageData(0, 0, surface.width, surface.height))
     }
     image.onerror = () => { if (!cancelled) setFailed(true) }
     image.src = src
@@ -118,7 +102,7 @@ export function PaletteArtwork({ palette, colors = palette.colors, interactive =
     return () => cancelAnimationFrame(frame)
   }, [source, colors, edited, palette, renderWidth, renderHeight])
   return <div ref={container} className={palette.group === 'gemstones' ? 'artwork gemstone-artwork' : 'artwork'} data-artwork-id={palette.id} data-render-state={failed ? 'error' : source || !needsCanvas ? 'ready' : 'loading'}>
-    <img src={src} alt={`${palette.name}效果图`} width={palette.group === 'gemstones' ? 1008 : 1080} height={palette.group === 'gemstones' ? 616 : palette.id === 'morandi' ? 664 : palette.id === 'mondrian' ? 654 : palette.id === 'memphis' ? 660 : 659} />
+    <img src={src} alt={`${palette.name}效果图`} width={width} height={height} />
     {needsCanvas && source && !failed && <canvas ref={canvas} width={renderWidth} height={renderHeight} role="img" aria-label={`${palette.name}实时配色预览`} />}
     {failed && <p role="alert" className="artwork-error">效果图暂时无法换色，请刷新重试。</p>}
   </div>
