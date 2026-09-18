@@ -215,9 +215,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ring); outline-
 .palette-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 26px; row-gap: 34px; }
 .palette-card { min-width: 0; }
 .palette-art { height: 225px; display: block; position: relative; overflow: hidden; background: var(--p4); border: 1px solid color-mix(in srgb, var(--p0) 7%, transparent); border-radius: 9px 9px 0 0; }
-.art-index { position: absolute; top: 17px; left: 18px; font-size: 7px; letter-spacing: 1.4px; color: var(--p0); opacity: .65; z-index: 1; }
-.art-caption { position: absolute; bottom: 16px; left: 18px; font-family: Georgia, serif; font-size: 13px; font-style: italic; color: var(--p0); }
-.art-arrow { position: absolute; bottom: 15px; right: 17px; color: var(--p0); transition: transform .2s ease; }
+.art-index { position: absolute; top: 17px; left: 18px; font-size: 7px; letter-spacing: 1.4px; color: var(--art-ink, var(--p0)); opacity: .65; z-index: 1; }
+.art-caption { position: absolute; bottom: 16px; left: 18px; font-family: Georgia, serif; font-size: 13px; font-style: italic; color: var(--art-ink, var(--p0)); }
+.art-arrow { position: absolute; bottom: 15px; right: 17px; color: var(--art-ink, var(--p0)); transition: transform .2s ease; }
 .palette-art:hover .art-arrow { transform: translate(2px, -2px); }
 .art-composition { position: absolute; inset: 44px 40px 41px; transition: transform .3s ease; }
 .palette-art:hover .art-composition { transform: scale(1.045); }
@@ -404,3 +404,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ring); outline-
 .skip-link:not(:focus) { width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 430px) { .hero-art { transform: scale(.76); margin-left: 0; } }
 @media (max-width: 360px) { .hero-art { transform: scale(.64); } }
+
+.palette-source { margin-top: 22px; font-size: 11px; line-height: 1.85; }
+.palette-source p { color: var(--muted-foreground); }
+.palette-source a { display: inline-block; color: var(--primary); text-decoration: underline; text-underline-offset: 3px; margin: 5px 0; }

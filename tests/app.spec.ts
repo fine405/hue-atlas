@@ -7,14 +7,14 @@ test.beforeEach(async ({ page }) => {
 })
 test.afterEach(() => expect(errors).toEqual([]))
 
-test('server-rendered gallery exposes all 12 palettes and copies a swatch', async ({ page, context, request }) => {
+test('server-rendered gallery exposes all 18 palettes and copies a swatch', async ({ page, context, request }) => {
   const response = await request.get('/')
   expect(response.status()).toBe(200)
   expect(await response.text()).toContain('抹茶拿铁')
   await context.grantPermissions(['clipboard-read', 'clipboard-write'])
   await page.goto('/')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('好设计')
-  await expect(page.locator('.palette-card')).toHaveCount(12)
+  await expect(page.locator('.palette-card')).toHaveCount(18)
   await page.getByRole('button', { name: '复制 #52684A', exact: true }).click()
   await expect(page.getByText('已复制到剪贴板')).toBeVisible()
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('#52684A')
@@ -72,7 +72,7 @@ test('feedback validates whitespace, prepares encoded issue and restores trigger
 test('mobile gallery, detail and feedback fit the viewport', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/')
-  await expect(page.locator('.palette-card')).toHaveCount(12)
+  await expect(page.locator('.palette-card')).toHaveCount(18)
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
   await page.screenshot({ path: 'test-results/gallery-mobile.png', fullPage: true })
   await page.getByRole('link', { name: '预览抹茶拿铁' }).click()

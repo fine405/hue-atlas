@@ -4,7 +4,7 @@
 
 ## 初版功能
 
-- 12 套原创预置色系，每套包含 5 个 HEX 色值、风格说明与语义颜色映射。
+- 18 套预置色系（12 套原创 + 6 套参考色系），每套包含 5 个 HEX 色值、风格说明与语义颜色映射。
 - 色系独立链接、服务端渲染，以及未知色系的 404 页面。
 - 单色 / 整组复制；使用同一组颜色变量的可交互界面预览。
 - GitHub Issues 反馈：校验表单并打开预填草稿，用户在 GitHub 登录后确认提交。支持附带当前配色，没有后端凭证或自动发布。
@@ -52,3 +52,7 @@ TanStack Start 官方文档目前标记为 RC，Nitro Vite 适配器也在持续
 对比度提示仅验证主按钮的背景和文字组合，不代表整组颜色在任意搭配下都满足可访问性要求。
 
 [反馈与建议](https://github.com/fine405/hue-atlas/issues) · [TanStack Start](https://tanstack.com/start/latest/docs/framework/react/overview) · [shadcn/ui 主题](https://ui.shadcn.com/docs/theming)
+
+## 新增参考色系
+
+蒙德里安、孟菲斯、洛可可、马卡龙、敦煌、莫兰迪，来自 [Y设计的抖音图文](https://www.douyin.com/note/7308946796603067667)。五个 HEX 色值与排列顺序按原图录入；描述为本站撰写，未转载原图。组件预览单独分配语义颜色，部分配色补充中性色以保证文字可读性。
